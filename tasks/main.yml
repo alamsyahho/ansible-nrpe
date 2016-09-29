@@ -1,0 +1,77 @@
+---
+- name: install ansible packages
+  yum:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - libselinux-python
+
+- name: make sure epel repository exists
+  yum:
+    name: https://dl.fedoraproject.org/pub/epel/epel-release-latest-6.noarch.rpm
+    state: present
+
+- name: install nrpe and nagios plugins packages
+  yum:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - nrpe
+    - nagios-common
+    - nagios-plugins
+    - nagios-plugins-all
+    - nagios-plugins-breeze
+    - nagios-plugins-by_ssh
+    - nagios-plugins-cluster
+    - nagios-plugins-dhcp
+    - nagios-plugins-dig
+    - nagios-plugins-disk
+    - nagios-plugins-disk_smb
+    - nagios-plugins-dns
+    - nagios-plugins-dummy
+    - nagios-plugins-file_age
+    - nagios-plugins-flexlm
+    - nagios-plugins-fping
+    - nagios-plugins-game
+    - nagios-plugins-hpjd
+    - nagios-plugins-http
+    - nagios-plugins-icmp
+    - nagios-plugins-ide_smart
+    - nagios-plugins-ircd
+    - nagios-plugins-ldap
+    - nagios-plugins-load
+    - nagios-plugins-log
+    - nagios-plugins-mailq
+    - nagios-plugins-mrtg
+    - nagios-plugins-mrtgtraf
+    - nagios-plugins-mysql
+    - nagios-plugins-nagios
+    - nagios-plugins-nt
+    - nagios-plugins-ntp
+    - nagios-plugins-ntp-perl
+    - nagios-plugins-nwstat
+    - nagios-plugins-oracle
+    - nagios-plugins-overcr
+    - nagios-plugins-perl
+    - nagios-plugins-pgsql
+    - nagios-plugins-ping
+    - nagios-plugins-procs
+    - nagios-plugins-real
+    - nagios-plugins-rpc
+    - nagios-plugins-sensors
+    - nagios-plugins-smtp
+    - nagios-plugins-snmp
+    - nagios-plugins-ssh
+    - nagios-plugins-swap
+    - nagios-plugins-tcp
+    - nagios-plugins-time
+    - nagios-plugins-ups
+    - nagios-plugins-users
+    - nagios-plugins-wave
+
+- name: configure nrpe.cfg
+  template:
+    src: nrpe.cfg.j2
+    dest: /etc/nagios/nrpe.cfg
+  notify:
+  - restart nrpe

@@ -1,0 +1,5 @@
+---
+server_port: 5666
+nrpe_user: nrpe
+nrpe_group: nrpe
+allowed_hosts: 127.0.0.1,10.10.10.100
